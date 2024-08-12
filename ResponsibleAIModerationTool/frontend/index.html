@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filterwave</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Add Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;700&display=swap">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10 col-sm-12">
+                <div class="card shadow-lg rounded">
+                    <div class="card-body">
+                        <h1 class="text-center mb-4">Filterwave</h1>
+                        <div class="form-group">
+                            <label for="contentInput">Enter content to Filter:</label>
+                            <textarea class="form-control" id="contentInput" placeholder="Enter content here..."></textarea>
+                        </div>
+                        <button id="moderateButton" class="btn btn-danger btn-block">Filter Content</button>
+                        <pre id="result" class="mt-4 p-3 border rounded"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>
