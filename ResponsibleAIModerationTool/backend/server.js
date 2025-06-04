@@ -11,8 +11,8 @@ const port = 3000;
 app.use(bodyParser.json());
 
 // Configuration for Gemini API
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent';
-const GEMINI_API_KEY = 'AIzaSyAcQBO_MW-16hDfuyDBIR_Iq8rbYr750vo'; // API key remains in code
+const GEMINI_API_URL = 'URL';
+const GEMINI_API_KEY = 'API'; 
 
 // Route to moderate content
 app.post('/moderate', async (req, res) => {
