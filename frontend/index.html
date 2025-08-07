@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filterwave - AI Content Moderation</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-shield-alt"></i>
+                <span>Filterwave</span>
+            </div>
+            <div class="nav-menu">
+                <div id="authSection" class="auth-section">
+                    <button id="loginBtn" class="btn btn-outline">Login</button>
+                    <button id="signupBtn" class="btn btn-primary">Sign Up</button>
+                </div>
+                <div id="userSection" class="user-section" style="display: none;">
+                    <span id="userEmail" class="user-email"></span>
+                    <button id="dashboardBtn" class="btn btn-outline">Dashboard</button>
+                    <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section id="heroSection" class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    AI-Powered Content Moderation
+                    <span class="gradient-text">Made Simple</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Protect your platform with intelligent content filtering. 
+                    Get 5 free scans, then unlock unlimited access with an account.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">99.2%</span>
+                        <span class="stat-label">Accuracy</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">&lt;100ms</span>
+                        <span class="stat-label">Response Time</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Monitoring</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Moderation Tool -->
+        <section id="moderationSection" class="moderation-section">
+            <div class="container">
+                <div class="moderation-card">
+                    <div class="card-header">
+                        <h2>Content Moderation Tool</h2>
+                        <div class="usage-indicator">
+                            <span id="usageText">Free scans remaining: <strong id="remainingScans">5</strong></span>
+                            <div class="usage-bar">
+                                <div id="usageProgress" class="usage-progress"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="input-section">
+                            <label for="contentInput" class="input-label">
+                                <i class="fas fa-edit"></i>
+                                Enter content to moderate
+                            </label>
+                            <textarea 
+                                id="contentInput" 
+                                class="content-input" 
+                                placeholder="Type or paste your content here... We'll analyze it for hate speech, harassment, explicit content, and more."
+                                maxlength="5000"
+                            ></textarea>
+                            <div class="input-footer">
+                                <span id="charCount" class="char-count">0 / 5000</span>
+                                <button id="moderateBtn" class="btn btn-primary btn-large">
+                                    <i class="fas fa-shield-alt"></i>
+                                    Analyze Content
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="resultSection" class="result-section" style="display: none;">
+                            <div class="result-header">
+                                <h3>Moderation Result</h3>
+                                <button id="feedbackBtn" class="btn btn-outline btn-small">
+                                    <i class="fas fa-comment"></i>
+                                    Provide Feedback
+                                </button>
+                            </div>
+                            <div id="resultContent" class="result-content"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboardSection" class="dashboard-section" style="display: none;">
+            <div class="container">
+                <div class="dashboard-header">
+                    <h2>Moderation Dashboard</h2>
+                    <p>Track your content moderation activity and trends</p>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3 id="totalScans">0</h3>
+                            <p>Total Scans</p>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-flag"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3 id="flaggedContent">0</h3>
+                            <p>Flagged Content</p>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3 id="avgConfidence">0%</h3>
+                            <p>Avg Confidence</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3>Recent Activity</h3>
+                    <div id="activityChart" class="activity-chart">
+                        <p class="no-data">No activity data available yet. Start moderating content to see your trends!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Welcome Back</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Login</button>
+                <p class="auth-switch">
+                    Don't have an account? <a href="#" id="switchToSignup">Sign up</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Join Filterwave</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="signup-benefits">
+                <h4>Why sign up?</h4>
+                <ul>
+                    <li><i class="fas fa-infinity"></i> Unlimited content scans</li>
+                    <li><i class="fas fa-chart-bar"></i> Detailed analytics dashboard</li>
+                    <li><i class="fas fa-history"></i> Moderation history</li>
+                    <li><i class="fas fa-support"></i> Priority support</li>
+                </ul>
+            </div>
+            <form id="signupForm" class="auth-form">
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" minlength="6" required>
+                    <small>Minimum 6 characters</small>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                <p class="auth-switch">
+                    Already have an account? <a href="#" id="switchToLogin">Login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Limit Reached Modal -->
+    <div id="limitModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Free Limit Reached</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="limit-content">
+                <div class="limit-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h4>Want more? Join the club!</h4>
+                <p>You've used all 5 free scans. Create an account to get unlimited access and unlock powerful features.</p>
+                <div class="limit-benefits">
+                    <div class="benefit">
+                        <i class="fas fa-infinity"></i>
+                        <span>Unlimited scans</span>
+                    </div>
+                    <div class="benefit">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics dashboard</span>
+                    </div>
+                    <div class="benefit">
+                        <i class="fas fa-clock"></i>
+                        <span>Moderation history</span>
+                    </div>
+                </div>
+                <div class="limit-actions">
+                    <button id="limitSignupBtn" class="btn btn-primary">Sign Up Free</button>
+                    <button id="limitLoginBtn" class="btn btn-outline">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div id="feedbackModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Provide Feedback</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="feedbackForm" class="feedback-form">
+                <div class="form-group">
+                    <label>Was this moderation result accurate?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="feedbackType" value="correct" required>
+                            <span>Yes, it was correct</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="feedbackType" value="incorrect" required>
+                            <span>No, it was wrong</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="feedbackType" value="unsure" required>
+                            <span>I'm not sure</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="feedbackComment">Additional comments (optional)</label>
+                    <textarea id="feedbackComment" placeholder="Help us improve by sharing more details..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Submit Feedback</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Analyzing content...</p>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
